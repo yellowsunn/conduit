@@ -494,8 +494,7 @@ class _UserMessageBubbleState extends ConsumerState<UserMessageBubble> {
     // Consider multiline if text exceeds ~50 chars or contains newlines
     // Check length first (O(1)) to short-circuit before scanning for newlines
     final content = widget.message.content;
-    final isMultiline = content.length > 50 || content.contains('\n');
-    final bubbleRadius = isMultiline ? AppBorderRadius.xl : AppBorderRadius.pill;
+    const bubbleRadius = AppBorderRadius.sm;
 
     return ConduitContextMenu(
       actions: _buildMessageActions(context),
