@@ -14,6 +14,7 @@ import '../../../shared/services/tasks/task_queue.dart';
 import '../../../shared/utils/conversation_context_menu.dart';
 import '../../tools/providers/tools_providers.dart';
 import '../utils/file_utils.dart';
+import '../../../shared/widgets/markdown/markdown_config.dart';
 
 // Pre-compiled regex for extracting file IDs from URLs (performance optimization)
 // Handles both /api/v1/files/{id} and /api/v1/files/{id}/content formats
@@ -601,20 +602,11 @@ class _UserMessageBubbleState extends ConsumerState<UserMessageBubble> {
                                   ),
                                 ),
                               )
-                            : Text(
-                                widget.message.content,
-                                style: AppTypography.chatMessageStyle.copyWith(
-                                  color:
-                                      context.conduitTheme.chatBubbleUserText,
-                                ),
-                                softWrap: true,
-                                textAlign: TextAlign.left,
-                                textHeightBehavior: const TextHeightBehavior(
-                                  applyHeightToFirstAscent: false,
-                                  applyHeightToLastDescent: false,
-                                  leadingDistribution:
-                                      TextLeadingDistribution.even,
-                                ),
+                            : ConduitMarkdown.build(
+                                context: context,
+                                data: widget.message.content,
+                                textColor:
+                                    context.conduitTheme.chatBubbleUserText,
                               ),
                       ),
                     ),

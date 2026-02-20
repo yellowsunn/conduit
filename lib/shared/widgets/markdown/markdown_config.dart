@@ -28,25 +28,27 @@ class ConduitMarkdown {
   static Widget build({
     required BuildContext context,
     required String data,
+    Color? textColor,
     MarkdownLinkTapCallback? onTapLink,
     Widget Function(Uri uri, String? title, String? alt)? imageBuilderOverride,
   }) {
     final theme = context.conduitTheme;
     final material = Theme.of(context);
 
+    final resolvedTextColor = textColor ?? theme.textPrimary;
     final baseTextStyle = AppTypography.bodyMediumStyle.copyWith(
-      color: theme.textPrimary,
+      color: resolvedTextColor,
       height: 1.45,
     );
 
     final gptThemeData = GptMarkdownThemeData(
       brightness: material.brightness,
-      h1: AppTypography.headlineLargeStyle.copyWith(color: theme.textPrimary),
-      h2: AppTypography.headlineMediumStyle.copyWith(color: theme.textPrimary),
-      h3: AppTypography.headlineSmallStyle.copyWith(color: theme.textPrimary),
-      h4: AppTypography.bodyLargeStyle.copyWith(color: theme.textPrimary),
+      h1: AppTypography.headlineLargeStyle.copyWith(color: resolvedTextColor),
+      h2: AppTypography.headlineMediumStyle.copyWith(color: resolvedTextColor),
+      h3: AppTypography.headlineSmallStyle.copyWith(color: resolvedTextColor),
+      h4: AppTypography.bodyLargeStyle.copyWith(color: resolvedTextColor),
       h5: baseTextStyle.copyWith(fontWeight: FontWeight.w600),
-      h6: AppTypography.bodySmallStyle.copyWith(color: theme.textSecondary),
+      h6: AppTypography.bodySmallStyle.copyWith(color: resolvedTextColor),
       linkColor: material.colorScheme.primary,
       linkHoverColor: material.colorScheme.primary.withValues(alpha: 0.7),
       hrLineColor: theme.dividerColor,
