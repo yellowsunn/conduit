@@ -777,18 +777,24 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     return distance >= 0 ? distance : 0.0;
   }
 
-  void _scheduleAutoScrollToBottom() {
+  void _scheduleAutoScrollToBottom({int retryCount = 0}) {
     if (_autoScrollCallbackScheduled) return;
     _autoScrollCallbackScheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _autoScrollCallbackScheduled = false;
       if (!mounted || !_shouldAutoScrollToBottom) return;
       if (!_scrollController.hasClients) {
-        _scheduleAutoScrollToBottom();
+        _scheduleAutoScrollToBottom(retryCount: retryCount);
         return;
       }
       _scrollToBottom(smooth: false);
-      _shouldAutoScrollToBottom = false;
+      // Content may still be loading (e.g. paginated messages), so retry
+      // until we actually reach the bottom or hit the retry limit.
+      if (_distanceFromBottom() <= 1 || retryCount >= 10) {
+        _shouldAutoScrollToBottom = false;
+      } else {
+        _scheduleAutoScrollToBottom(retryCount: retryCount + 1);
+      }
     });
   }
 
