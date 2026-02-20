@@ -2232,8 +2232,8 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                                     ),
                                     child: BackdropFilter(
                                       filter: ImageFilter.blur(
-                                        sigmaX: 16,
-                                        sigmaY: 16,
+                                        sigmaX: 0.5,
+                                        sigmaY: 0.5,
                                       ),
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -2247,14 +2247,14 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                                                       .cardBackground,
                                                   Colors.white,
                                                   0.08,
-                                                )!.withValues(alpha: 0.85)
+                                                )!.withValues(alpha: 0.35)
                                               : Color.lerp(
                                                   context
                                                       .conduitTheme
                                                       .inputBackground,
                                                   Colors.black,
                                                   0.06,
-                                                )!.withValues(alpha: 0.85),
+                                                )!.withValues(alpha: 0.35),
                                           border: Border.all(
                                             color: context
                                                 .conduitTheme
